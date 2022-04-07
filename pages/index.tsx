@@ -231,15 +231,15 @@ export async function getServerSideProps(context: any) {
   
   const today =
     parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
-  date.setDate(parseInt(date.toISOString().split("-")[2].split("T")[0]) - 1);
+  date.setDate(date.getDate() - 1);
   const yesterday =
     parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
-  date.setDate(parseInt(date.toISOString().split("-")[2].split("T")[0]) + 1);
-  date.setMonth(parseInt(date.toISOString().split("-")[1]) - 1);
+  date.setDate(date.getDate() + 1);
+  date.setMonth(date.getMonth() - 1);
   const month =
     parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
-  date.setMonth(parseInt(date.toISOString().split("-")[1]) + 1);
-  date.setFullYear(parseInt(date.toISOString().split("-")[0]) - 1);
+  date.setMonth(date.getMonth() + 1);
+  date.setFullYear(date.getFullYear() - 1);
   const year =
     parseInt(date.toISOString().split("-")[1]) + 1 + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
 
