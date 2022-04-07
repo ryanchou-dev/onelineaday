@@ -114,7 +114,7 @@ export default function Home({
 
       <div className={`md:py-24 md:px-36 px-24 py-16 min-h-screen bg-slate-100`}>
         <p className={`font-semibold text-xl`}>~one line a day~ <Link href={`https://github.com/ryanchou-dev/onelineaday`}>
-            <a className={``}><AiFillGithub className={`inline w-6 h-6 hover:scale-105 duration-300`} /></a>
+            <a><AiFillGithub className={`inline w-6 h-6 hover:scale-105 duration-300`} /></a>
           </Link></p> 
         <p className={`mt-3 text-base`}>a minimalistic diary.</p>
 
