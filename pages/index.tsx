@@ -135,7 +135,7 @@ export default function Home({
             </button>
             <div className={`mt-8 py-6 w-full border-t border-green-600 border-opacity-40`}></div>
 
-            <p className={`text-base`}>hi {name}, today is: {day}!! (GMT)</p>
+            <p className={`text-base`}>hi {name}, today is: {day}!! (iso-8601)</p>
             <label className={`block font-medium text-md mb-2`} htmlFor="log">
               how was your day? (keep it short!)
             </label>
@@ -228,20 +228,20 @@ export async function getServerSideProps(context: any) {
   // ew, dates.
   const date = new Date();
   date.setHours(0, 0, 0, 0);
-
+  
   const today =
-    date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear();
-  date.setDate(date.getDate() - 1);
+    parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
+  date.setDate(parseInt(date.toISOString().split("-")[2].split("T")[0]) - 1);
   const yesterday =
-    date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear();
-  date.setDate(date.getDate() + 1);
-  date.setMonth(date.getMonth() - 1);
+    parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
+  date.setDate(parseInt(date.toISOString().split("-")[2].split("T")[0]) + 1);
+  date.setMonth(parseInt(date.toISOString().split("-")[1]) - 1);
   const month =
-    date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear();
-  date.setMonth(date.getMonth() + 1);
-  date.setFullYear(date.getFullYear() - 1);
+    parseInt(date.toISOString().split("-")[1]) + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
+  date.setMonth(parseInt(date.toISOString().split("-")[1]) + 1);
+  date.setFullYear(parseInt(date.toISOString().split("-")[0]) - 1);
   const year =
-    date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear();
+    parseInt(date.toISOString().split("-")[1]) + 1 + "-" + parseInt(date.toISOString().split("-")[2].split("T")[0]) + "-" + parseInt(date.toISOString().split("-")[0]);
 
   // already wrote down something
   const docSnap = await getDoc(doc(db, id ?? "'", today));
