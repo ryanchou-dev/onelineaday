@@ -1,0 +1,4 @@
+.vercel
+# Dependency directories
+node_modules
+.env.local
