@@ -2,3 +2,5 @@
 # Dependency directories
 node_modules
 .env.local
+.next
+.vscode
