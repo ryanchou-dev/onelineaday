@@ -231,6 +231,7 @@ export default function Home({
           <p className={`text-gray-700 text-md font-medium mb-2 mt-6`}>
             forgot yesterday?
           </p>
+          
           <p className={`text-sm`}>you may need to re-query the section above to see changes.</p>
           <textarea
             defaultValue={lk == null ? "" : ret}
@@ -240,7 +241,8 @@ export default function Home({
             className={`mt-8 w-11/12 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
             id="log"
           />
-          {progress == 1 || (!yd) ? (
+          {progress
+           == 1 || (!yd) ? (
             <p className={`mt-3 text-base text-green-600`}>saved!</p>
           ) : (
             <p className={`mt-3 text-base text-blue-600`}>saving...</p>
