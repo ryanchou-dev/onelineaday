@@ -35,6 +35,7 @@ export default function Home({
   const [progress, setProgress] = useState(1);
   const [lk, setlk] = useState("");
   const [cpy, setCpy] = useState("share your story!");
+  const [yd, setYd] = useState(1);
   const uid = ext?.user?.id?.toString();
   const shareURL =
     (typeof window !== "undefined" ? window.location.origin : null) +
@@ -55,6 +56,27 @@ export default function Home({
     const nlog = e.target.value;
     const docRef = doc(db, uid, day);
 
+    setYd(0);
+    setProgress(0);
+    if (nlog == "") {
+      deleteDoc(docRef);
+      setProgress(1);
+    } else {
+      setDoc(docRef, {
+        log: nlog,
+        serverTime: serverTimestamp(),
+      })
+      .then((snpsht) => {
+        setProgress(1);
+      })
+    }
+  };
+  
+  const onEditYesterday = (e: any) => {
+    const nlog = e.target.value;
+    const docRef = doc(db, uid, yesterday);
+    
+    setYd(1);
     setProgress(0);
     if (nlog == "") {
       deleteDoc(docRef);
@@ -148,7 +170,7 @@ export default function Home({
               id="log"
               placeholder="it's lonely o.o | maybe you should write something..."
             />
-            {progress == 1 ? (
+            {progress == 1 || yd  ? (
               <p className={`mt-3 text-base text-green-600`}>saved!</p>
             ) : (
               <p className={`mt-3 text-base text-blue-600`}>saving...</p>
@@ -204,6 +226,25 @@ export default function Home({
             ) : (
               <></>
             )}
+
+          <div className={`mt-8 py-2 w-full border-t border-green-600 border-opacity-40`}></div>
+          <p className={`text-gray-700 text-md font-medium mb-2 mt-6`}>
+            forgot yesterday?
+          </p>
+          <p className={`text-sm`}>you may need to re-query the section above to see changes.</p>
+          <textarea
+            defaultValue={lk == null ? "" : ret}
+            onInput={onEditYesterday}
+            rows={8}
+            maxLength={450}
+            className={`mt-8 w-11/12 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+            id="log"
+          />
+          {progress == 1 || (!yd) ? (
+            <p className={`mt-3 text-base text-green-600`}>saved!</p>
+          ) : (
+            <p className={`mt-3 text-base text-blue-600`}>saving...</p>
+          )}
           </>
         )}
       </div>
